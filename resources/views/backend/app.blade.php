@@ -41,7 +41,7 @@
         <!-- ============================================================== -->
 
         <div class="content-page">
-            
+
             {{-- Content Start --}}
             @yield('content')
             <!-- Content End -->
@@ -70,7 +70,41 @@
 
     @stack('script')
 
-    <script>
+
+        //  Toast notifications
+        @if (session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showToast('success', "{{ session('success') }}");
+                });
+            </script>
+        @endif
+
+        @if (session('error'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showToast('error', "{{ session('error') }}");
+                });
+            </script>
+        @endif
+
+        @if (session('warning'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showToast('warning', "{{ session('warning') }}");
+                });
+            </script>
+        @endif
+
+        @if (session('info'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showToast('info', "{{ session('info') }}");
+                });
+            </script>
+        @endif
+
+    {{-- <script>
         $(document).ready(function() {
 
             toastr.options.timeOut = 10000;
@@ -111,7 +145,7 @@
                 toastr.warning("{{ session('warning') }}");
             @endif
         });
-    </script>
+    </script> --}}
 
 
 

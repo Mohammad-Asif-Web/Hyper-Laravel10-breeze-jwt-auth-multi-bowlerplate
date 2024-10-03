@@ -35,7 +35,8 @@
         <!-- Leftbar User -->
         <div class="leftbar-user">
             <a href="pages-profile.html">
-                <img src="{{asset('backend/images/users/avatar-1.jpg')}}" alt="user-image" height="42" class="rounded-circle shadow-sm">
+                <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('backend/images/users/avatar-2.jpg')}}"
+                    alt="user-image" height="42" class="rounded-circle shadow-sm">
                 <span class="leftbar-user-name mt-2">Dominic Keller</span>
             </a>
         </div>

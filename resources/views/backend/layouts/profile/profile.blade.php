@@ -5,9 +5,54 @@
 @endsection
 
 @push('css')
-    <style>
+<style>
+    /* Start Styling for the upload box of custom photo upload */
+    .upload-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #ddd;
+        border-radius: 6px;
+        padding: 20px;
+        cursor: pointer;
+        text-align: center;
+        width: 100%;
+        height: 150px;
+        background-color: #f9f9f9;
+        color: #888;
+    }
 
-    </style>
+    .upload-box:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Styling for the preview image */
+    .image-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .image-preview img {
+        max-width: 150px;
+        max-height: 150px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+    .remove-link {
+        color: #ff6b6b;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .remove-link:hover {
+        color: #ff0000;
+    }
+    /* Ending Styling for the upload box of custom photo upload */
+
+</style>
 @endpush
 
 @section('content')
@@ -45,13 +90,13 @@
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <div class="avatar-lg">
-                                                <img src="{{asset('backend/images/users/avatar-2.jpg')}}" alt="" class="rounded-circle img-thumbnail">
+                                                <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('backend/images/users/avatar-2.jpg')}}" alt="" class="rounded-circle img-thumbnail">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div>
-                                                <h4 class="mt-1 mb-1 text-white">Michael Franklin</h4>
-                                                <p class="font-13 text-white-50"> Authorised Admin</p>
+                                                <h4 class="mt-1 mb-1 text-white">{{ Str::upper(Auth::user()->name ?? 'Michael Franklin') }}</h4>
+                                                <p class="font-13 text-white-50 text-capitalize"> Authorised {{ (Auth::user()->role) }}</p>
 
                                                 <ul class="mb-0 list-inline text-light">
                                                     <li class="list-inline-item me-3">
@@ -97,23 +142,19 @@
                         <div class="card-body">
                             <h4 class="header-title mt-0 mb-3">Admin Information</h4>
                             <p class="text-muted font-13">
-                                Hye, I’m Michael Franklin residing in this beautiful world. I'm the owner of this ''this websites. this project is a service based project for public peoples.
+                                Hye, I’m {{Auth::user()->name ?? 'Michael Franklin'}} residing in this beautiful world. I'm the owner of this ''this websites. this project is a service based project for public peoples.
                             </p>
 
                             <hr />
 
                             <div class="text-start">
-                                <p class="text-muted"><strong>Full Name :</strong> <span class="ms-2">Michael A. Franklin</span></p>
-
-                                <p class="text-muted"><strong>Mobile :</strong><span class="ms-2">(+12) 123 1234 567</span></p>
-
-                                <p class="text-muted"><strong>Email :</strong> <span class="ms-2">coderthemes@gmail.com</span></p>
-
-                                <p class="text-muted"><strong>Location :</strong> <span class="ms-2">USA</span></p>
-                                <p class="text-muted"><strong>City :</strong> <span class="ms-2">Las Vegas</span></p>
-
+                                <p class="text-muted"><strong>Full Name :</strong> <span class="ms-2">{{Auth::user()->name ?? 'Michael Franklin'}}</span></p>
+                                <p class="text-muted"><strong>Email :</strong> <span class="ms-2">{{Auth::user()->email ?? 'coderthemes@gmail.com'}} </span></p>
+                                <p class="text-muted"><strong>Mobile :</strong><span class="ms-2">{{Auth::user()->phone ?? '(+12) 123 1234 567'}} (+12) 123 1234 567</span></p>
+                                <p class="text-muted"><strong>Location :</strong> <span class="ms-2"> {{Auth::user()->location ?? 'USA'}}USA</span></p>
+                                <p class="text-muted"><strong>City :</strong> <span class="ms-2">{{Auth::user()->city ?? 'Las Vegas'}} </span></p>
                                 <p class="text-muted"><strong>Languages :</strong>
-                                    <span class="ms-2"> English, German, Spanish </span>
+                                    <span class="ms-2">{{Auth::user()->language ?? 'English, German, Spanish'}}  </span>
                                 </p>
                                 <p class="text-muted mb-0" id="tooltip-container"><strong>Elsewhere :</strong>
                                     <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container" data-bs-placement="top" data-bs-toggle="tooltip" href="#" title="Facebook"><i class="mdi mdi-facebook"></i></a>
@@ -190,67 +231,82 @@
                                     </div>
                                     {{-- Account Setting --}}
                                     <div class="tab-pane active show" id="account">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="name"> Name</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="name" name="name" class="form-control" value="Francis">
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="email">Email</label>
-                                                    <div class="col-md-9">
-                                                        <input type="email" id="email" name="email" class="form-control" value="cory1979@hotmail.com">
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="phone"> Phone</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="phone" name="phone" class="form-control" value="(+12) 123 1234 567">
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="location"> Location</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="location" name="location" class="form-control" value="USA">
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="city"> City</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="city" name="city" class="form-control" value="Las Vegas">
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="language"> Languages</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="language" name="language" class="form-control" value="English, German, Spanish">
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone"
-                                                        data-previews-container="#file-previews">
-                                                        <div class="fallback">
-                                                            <input name="file" type="file" multiple hidden />
+                                        <form action="{{route('admin.profile.update')}}" method="post" enctype="multipart/form-data" id="profile-form">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    {{-- Name --}}
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="name"> Name</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror"
+                                                                    value="{{Auth::user()->name ?? 'Francis'}}">
                                                         </div>
-                                                        <div class="dz-message needsclick">
-                                                            <i class="h1 text-muted ri-upload-cloud-2-line"></i>
-                                                            <h3>Drop files here or click to upload.</h3>
-                                                            <span class="text-muted font-13">(Upload your profile photo)</span>
+                                                        @error('name')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                    {{-- Email --}}
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="email">Email</label>
+                                                        <div class="col-md-9">
+                                                            <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{Auth::user()->email ?? 'cory1979@hotmail.com'}}">
+                                                        </div>
+                                                        @error('email')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                    {{-- phone --}}
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="phone"> Phone</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="phone" name="phone" class="form-control" value="{{Auth::user()->phone ?? '(+12) 123 1234 567'}}">
                                                         </div>
                                                     </div>
-                                                    <!-- file preview -->
-                                                    <div class="dropzone-previews mt-3" id="file-previews"></div>
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="location"> Location</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="location" name="location" class="form-control" value="{{Auth::user()->location ?? 'USA'}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="city"> City</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="city" name="city" class="form-control" value="{{Auth::user()->city ?? 'Las vegas'}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="language"> Languages</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="language" name="language" class="form-control" value="{{Auth::user()->language ?? 'English, German, Spanish'}}">
+                                                        </div>
+                                                    </div>
+                                                    {{-- upload photo --}}
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="avatar">Avatar</label>
+                                                        <div class="col-md-9">
+                                                            {{-- Start upload box of custom photo upload --}}
+                                                            <label for="avatar" class="upload-box">
+                                                                <span id="upload-text">Click to upload a photo</span>
+                                                                <input id="avatar" name="avatar" type="file" accept="image/*" style="display: none;" />
+                                                            </label>
+                                                            <div class="image-preview mt-3" id="file-previews" style="display: none;">
+                                                                <img id="preview-image" src="" alt="Selected Image" />
+                                                                <span class="remove-link" id="remove-photo">Remove</span>
+                                                            </div>
+                                                            {{-- Ending upload box of custom photo upload --}}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <ul class="list-inline wizard mb-0">
-                                            <li class="next list-inline-item float-end">
-                                                <a href="javascript:void(0);" class="btn btn-info">Update Info <i class="mdi mdi-arrow-right ms-1"></i></a>
-                                            </li>
-                                        </ul>
+                                            <ul class="list-inline wizard mb-0">
+                                                <li class="next list-inline-item float-end">
+                                                    <button type="submit" class="btn btn-info">Update Info <i class="mdi mdi-arrow-right ms-1"></i></button>
+                                                </li>
+                                            </ul>
+                                        </form>
                                     </div>
+
                                     {{-- Password Reset --}}
                                     <div class="tab-pane" id="profile">
                                         <div class="row">

@@ -41,7 +41,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Admin Profile routes
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
-    Route::post('/admin/profile/store', [AdminController::class, 'store'])->name('admin.profile.store');
+    Route::post('/admin/profile/update', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
     Route::post('/admin/profile/update-email', [AdminController::class, 'updateEmail'])->name('admin.profile.update.email');
     Route::post('/admin/profile/update-password', [AdminController::class, 'updatePassword'])->name('admin.profile.update.password');
     // general setting

@@ -17,6 +17,11 @@ return new class extends Migration
             $table->string('username', 150)->nullable();
             $table->string('email', 150)->unique()->nullable();
             $table->string('password')->nullable();
+            $table->string('phone', 150)->unique()->nullable();
+            $table->string('location', 150)->nullable();
+            $table->string('city', 150)->nullable();
+            $table->string('language', 150)->nullable();
+
             $table->string('avatar')->nullable();
             $table->enum('role', ['admin','user'])->default('user');
             $table->string('otp', 6)->nullable();
@@ -24,6 +29,9 @@ return new class extends Migration
             $table->string('google_id')->nullable();
             $table->string('github_id')->nullable();
             $table->string('linkedin_id')->nullable();
+            $table->string('facebook_url')->nullable();
+            $table->string('twitter_url')->nullable();
+            $table->string('skype_url')->nullable();
             $table->rememberToken();
             $table->timestamp('otp_verified_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();

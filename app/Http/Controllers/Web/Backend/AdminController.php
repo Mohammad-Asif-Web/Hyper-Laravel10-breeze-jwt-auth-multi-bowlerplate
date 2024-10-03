@@ -20,36 +20,34 @@ class AdminController extends Controller
         return view('backend.layouts.profile.profile');
     }
 
-    // public function edit()
-    // {
-    //     return view('backend.layouts.profile.edit-profile');
-    // }
-
-    public function store(Request $request)
+    public function updateProfile(Request $request)
     {
-        // dd($request);
         // Validate the incoming request
-        $request->validate([
-            'name' => 'nullable|string|max:255',
-            // 'phone' => 'nullable|string|max:255',
-            // 'country' => 'nullable|string|max:255',
-            // 'city' => 'nullable|string|max:255',
-            // 'address' => 'nullable|string|max:255',
-            'avatar' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+        $validator =  $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'nullable|string|unique:users|max:255',
+            'phone' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'language' => 'nullable|string|max:255',
+            'avatar' => 'nullable|image|mimes:jpg,png,jpeg|max:10240',
         ]);
+
+        // dd($request->hasFile('avatar'));
 
         $admin = Auth::user();
 
         // Update the admin's profile
         $admin->name = $request->input('name');
-        // $admin->phone = $request->input('phone');
-        // $admin->country = $request->input('country');
-        // $admin->city = $request->input('city');
-        // $admin->address = $request->input('address');
+        $admin->phone = $request->input('phone');
+        $admin->location = $request->input('location');
+        $admin->city = $request->input('city');
+        $admin->language = $request->input('language');
 
         // Handle profile image update
         if ($request->hasFile('avatar')) {
             // Delete the old image if it exists
+            // dd($request->file('avatar'));
             if ($admin->avatar) {
                 deleteImage($admin->avatar);
             }
