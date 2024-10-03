@@ -1,44 +1,34 @@
-Dropzone.options.myAwesomeDropzone = {
-    url: '/your-upload-url', // Change this to your actual upload URL
-    autoProcessQueue: false, // Prevent immediate upload to manually control the process
-    previewsContainer: '#file-previews', // Container for file previews
-    clickable: '.dz-message', // Let the message area be clickable
-    acceptedFiles: 'image/*', // Limit to images only
-    addRemoveLinks: true, // Show remove links for each file preview
 
-    // Customize preview template (optional)
-    previewTemplate: `<div class="dz-preview dz-file-preview">
-                          <div class="dz-image"><img data-dz-thumbnail /></div>
-                          <div class="dz-details">
-                              <div class="dz-filename"><span data-dz-name></span></div>
-                              <div class="dz-size" data-dz-size></div>
-                          </div>
-                          <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
-                          <div class="dz-error-message"><span data-dz-errormessage></span></div>
-                          <button class="dz-remove" data-dz-remove>Remove</button>
-                      </div>`, // You can customize how the previews look
+    // Access the file input and preview elements
+    const avatarInput = document.getElementById('avatar');
+    const previewDiv = document.getElementById('file-previews');
+    const previewImage = document.getElementById('preview-image');
+    const removeLink = document.getElementById('remove-photo');
+    const uploadText = document.getElementById('upload-text');
 
-    init: function () {
-        var myDropzone = this;
+    // Handle file selection
+    avatarInput.addEventListener('change', function () {
+        const file = this.files[0];
 
-        // Optional: Handle the upload via a button
-        document.getElementById("submit-all").addEventListener("click", function () {
-            myDropzone.processQueue(); // Manually trigger upload
-        });
+        // Check if the user selected a file
+        if (file) {
+            const reader = new FileReader();
 
-        // If you need to do something with uploaded files
-        myDropzone.on("success", function (file, response) {
-            console.log("File uploaded successfully: ", response);
-        });
+            // Load and display the image in the preview
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+                previewDiv.style.display = 'block'; // Show the preview div
+                uploadText.style.display = 'none'; // Hide the upload text
+            }
 
-        // Optional: Remove file from preview list if "Remove" button is clicked
-        myDropzone.on("removedfile", function (file) {
-            console.log("File removed: ", file);
-        });
+            reader.readAsDataURL(file);
+        }
+    });
 
-        // Display any errors
-        myDropzone.on("error", function (file, errorMessage) {
-            console.log("Error uploading file: ", errorMessage);
-        });
-    }
-};
+    // Handle removing the selected photo
+    removeLink.addEventListener('click', function () {
+        avatarInput.value = ''; // Clear the input value
+        previewImage.src = ''; // Clear the preview image
+        previewDiv.style.display = 'none'; // Hide the preview div
+        uploadText.style.display = 'block'; // Show the upload text
+    });
