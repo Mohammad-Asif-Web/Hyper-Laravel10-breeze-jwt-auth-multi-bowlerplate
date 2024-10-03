@@ -1,1 +1,57 @@
-!function(c){"use strict";function t(){}t.prototype.send=function(t,o,i,e,n,a,s,r){t={heading:t,text:o,position:i,loaderBg:e,icon:n,hideAfter:a=a||3e3,stack:s=s||1};t.showHideTransition=r||"fade",c.toast().reset("all"),c.toast(t)},c.NotificationApp=new t,c.NotificationApp.Constructor=t,c("#toastr-one").on("click",function(t){c.NotificationApp.send("Heads up!","This alert needs your attention, but it is not super important.","top-right","rgba(0,0,0,0.2)","info")}),c("#toastr-two").on("click",function(t){c.NotificationApp.send("Heads up!","Check below fields please.","top-center","rgba(0,0,0,0.2)","warning")}),c("#toastr-three").on("click",function(t){c.NotificationApp.send("Well Done!","You successfully read this important alert message","bottom-right","rgba(0,0,0,0.2)","success")}),c("#toastr-four").on("click",function(t){c.NotificationApp.send("Oh snap!","Change a few things up and try submitting again.","bottom-left","rgba(0,0,0,0.2)","error")}),c("#toastr-five").on("click",function(t){c.NotificationApp.send("How to contribute?",["Fork the repository","Improve/extend the functionality","Create a pull request"],"top-right","rgba(0,0,0,0.2)","info")}),c("#toastr-six").on("click",function(t){c.NotificationApp.send("Can I add <em>icons</em>?","Yes! check this <a href='https://github.com/kamranahmedse/jquery-toast-plugin/commits/master'>update</a>.","top-right","rgba(0,0,0,0.2)","info",!1)}),c("#toastr-seven").on("click",function(t){c.NotificationApp.send("","Set the `hideAfter` property to false and the toast will become sticky.","top-right","rgba(0,0,0,0.2)","success")}),c("#toastr-eight").on("click",function(t){c.NotificationApp.send("","Set the `showHideTransition` property to fade|plain|slide to achieve different transitions.","top-right","rgba(0,0,0,0.2)","info",3e3,1,"fade")})}(window.jQuery);
+!(function (c) {
+
+    function NotificationApp() {}
+
+    NotificationApp.prototype.send = function (heading, text, position, loaderBg, icon, hideAfter = 3000, stack = 1, transition = "fade") {
+        let options = {
+            heading: heading,
+            text: text,
+            position: position || 'top-right',
+            loaderBg: loaderBg || 'rgba(0,0,0,0.2)',
+            icon: icon,
+            hideAfter: hideAfter,
+            stack: stack,
+            showHideTransition: transition
+        };
+        // Triggering toast
+        c.toast().reset("all");
+        c.toast(options);
+    };
+
+    c.NotificationApp = new NotificationApp();
+
+})(window.jQuery);
+
+// Function to trigger toast based on session message
+function showToast(type, message) {
+    let icon = "";
+    let loaderBg = "";
+
+    switch (type) {
+        case 'success':
+            icon = "success";
+            loaderBg = "#5ba035"; // Success background
+            break;
+        case 'error':
+            icon = "error";
+            loaderBg = "#bf441d"; // Error background
+            break;
+        case 'warning':
+            icon = "warning";
+            loaderBg = "#da8609"; // Warning background
+            break;
+        case 'info':
+            icon = "info";
+            loaderBg = "#3b98b5"; // Info background
+            break;
+    }
+
+    // Trigger the toast
+    $.NotificationApp.send(
+        type.charAt(0).toUpperCase() + type.slice(1), // Capitalize first letter of type
+        message,
+        'top-right',
+        loaderBg,
+        icon
+    );
+}
