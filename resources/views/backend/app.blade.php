@@ -64,90 +64,44 @@
     <!--=============== THEME SETTING RIGHT SIDEBAR END =================-->
 
 
-
     <!-- JAVASCRIPT -->
     @include('backend.partials.scripts')
 
     @stack('script')
 
 
-        //  Toast notifications
-        @if (session('success'))
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    showToast('success', "{{ session('success') }}");
-                });
-            </script>
-        @endif
+    //  Toast notifications
+    @if (session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('success', "{{ session('success') }}");
+            });
+        </script>
+    @endif
 
-        @if (session('error'))
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    showToast('error', "{{ session('error') }}");
-                });
-            </script>
-        @endif
+    @if (session('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('error', "{{ session('error') }}");
+            });
+        </script>
+    @endif
 
-        @if (session('warning'))
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    showToast('warning', "{{ session('warning') }}");
-                });
-            </script>
-        @endif
+    @if (session('warning'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('warning', "{{ session('warning') }}");
+            });
+        </script>
+    @endif
 
-        @if (session('info'))
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    showToast('info', "{{ session('info') }}");
-                });
-            </script>
-        @endif
-
-    {{-- <script>
-        $(document).ready(function() {
-
-            toastr.options.timeOut = 10000;
-            @if (Session::has('success'))
-                toastr.options = {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "positionClass": "toastr-bottom-right",
-                };
-
-                toastr.success("{{ session('success') }}");
-            @endif
-
-            @if (Session::has('error'))
-                toastr.options = {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "positionClass": "toastr-bottom-right",
-                };
-                toastr.error("{{ session('error') }}");
-            @endif
-
-            @if (Session::has('info'))
-                toastr.options = {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "positionClass": "toastr-bottom-right",
-                };
-                toastr.info("{{ session('info') }}");
-            @endif
-
-            @if (Session::has('warning'))
-                toastr.options = {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "positionClass": "toastr-bottom-right",
-                };
-                toastr.warning("{{ session('warning') }}");
-            @endif
-        });
-    </script> --}}
-
-
+    @if (session('info'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('info', "{{ session('info') }}");
+            });
+        </script>
+    @endif
 
 </body>
 

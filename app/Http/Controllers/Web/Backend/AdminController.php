@@ -109,6 +109,30 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Password updated successfully.');
     }
 
+    public function updateSocial(Request $request)
+    {
+        // Validate the input, ensuring proper URL format
+        $request->validate([
+            'facebook' => 'nullable|url',
+            'twitter' => 'nullable|url',
+            'skype' => 'nullable|url',
+        ]);
+
+        // Get the authenticated user
+        $admin = Auth::user();
+
+        // Update the user's social media links
+        $admin->update([
+            'facebook_url' => $request->facebook,
+            'twitter_url' => $request->twitter,
+            'skype_url' => $request->skype,
+        ]);
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Social sites updated successfully');
+    }
+
+
 
 
 }

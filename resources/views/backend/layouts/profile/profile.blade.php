@@ -150,16 +150,16 @@
                             <div class="text-start">
                                 <p class="text-muted"><strong>Full Name :</strong> <span class="ms-2">{{Auth::user()->name ?? 'Michael Franklin'}}</span></p>
                                 <p class="text-muted"><strong>Email :</strong> <span class="ms-2">{{Auth::user()->email ?? 'coderthemes@gmail.com'}} </span></p>
-                                <p class="text-muted"><strong>Mobile :</strong><span class="ms-2">{{Auth::user()->phone ?? '(+12) 123 1234 567'}} (+12) 123 1234 567</span></p>
-                                <p class="text-muted"><strong>Location :</strong> <span class="ms-2"> {{Auth::user()->location ?? 'USA'}}USA</span></p>
+                                <p class="text-muted"><strong>Mobile :</strong><span class="ms-2">{{Auth::user()->phone ?? '(+12) 123 1234 567'}}</span></p>
+                                <p class="text-muted"><strong>Location :</strong> <span class="ms-2"> {{Auth::user()->location ?? 'USA'}}</span></p>
                                 <p class="text-muted"><strong>City :</strong> <span class="ms-2">{{Auth::user()->city ?? 'Las Vegas'}} </span></p>
                                 <p class="text-muted"><strong>Languages :</strong>
                                     <span class="ms-2">{{Auth::user()->language ?? 'English, German, Spanish'}}  </span>
                                 </p>
                                 <p class="text-muted mb-0" id="tooltip-container"><strong>Elsewhere :</strong>
-                                    <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container" data-bs-placement="top" data-bs-toggle="tooltip" href="#" title="Facebook"><i class="mdi mdi-facebook"></i></a>
-                                    <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container" data-bs-placement="top" data-bs-toggle="tooltip" href="#" title="Twitter"><i class="mdi mdi-twitter"></i></a>
-                                    <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container" data-bs-placement="top" data-bs-toggle="tooltip" href="#" title="Skype"><i class="mdi mdi-skype"></i></a>
+                                    <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container" data-bs-placement="top" data-bs-toggle="tooltip" href="{{auth()->user()->facebook_url}}" target="_blank" title="Facebook"><i class="mdi mdi-facebook"></i></a>
+                                    <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container" data-bs-placement="top" data-bs-toggle="tooltip" href="{{auth()->user()->twitter_url}}" target="_blank" title="Twitter"><i class="mdi mdi-twitter"></i></a>
+                                    <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container" data-bs-placement="top" data-bs-toggle="tooltip" href="{{auth()->user()->skype_url}}" target="_blank" title="Skype"><i class="mdi mdi-skype"></i></a>
                                 </p>
 
                             </div>
@@ -207,19 +207,25 @@
                             <div id="progressbarwizard">
                                 <ul class="nav nav-pills nav-justified form-wizard-header mb-3">
                                     <li class="nav-item">
-                                        <a href="#account" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2 active">
+                                        <a href="#accountInfoTab" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2 active">
                                             <i class="mdi mdi-account-settings font-18 align-middle me-1"></i>
-                                            <span class="d-none d-sm-inline">Account</span>
+                                            <span class="d-none d-sm-inline">Account Info</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#profile" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                        <a href="#emailTab" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                            <i class="mdi mdi-email-sync font-18 align-middle me-1"></i>
+                                            <span class="d-none d-sm-inline">Change Email</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#passwordTab" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
                                             <i class="mdi mdi-key-alert font-18 align-middle me-1"></i>
                                             <span class="d-none d-sm-inline">Reset Password</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#social" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                        <a href="#socialTab" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
                                             <i class="mdi mdi-web font-18 align-middle me-1"></i>
                                             <span class="d-none d-sm-inline">Social</span>
                                         </a>
@@ -230,7 +236,7 @@
                                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                                     </div>
                                     {{-- Account Setting --}}
-                                    <div class="tab-pane active show" id="account">
+                                    <div class="tab-pane active show" id="accountInfoTab">
                                         <form action="{{route('admin.profile.update')}}" method="post" enctype="multipart/form-data" id="profile-form">
                                             @csrf
                                             <div class="row">
@@ -243,16 +249,6 @@
                                                                     value="{{Auth::user()->name ?? 'Francis'}}">
                                                         </div>
                                                         @error('name')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                    {{-- Email --}}
-                                                    <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="email">Email</label>
-                                                        <div class="col-md-9">
-                                                            <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{Auth::user()->email ?? 'cory1979@hotmail.com'}}">
-                                                        </div>
-                                                        @error('email')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
@@ -307,65 +303,105 @@
                                         </form>
                                     </div>
 
-                                    {{-- Password Reset --}}
-                                    <div class="tab-pane" id="profile">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="email">Email</label>
-                                                    <div class="col-md-9">
-                                                        <input type="email" id="email" name="email" class="form-control" value="cory1979@hotmail.com">
+                                    {{-- Email Change --}}
+                                    <div class="tab-pane" id="emailTab">
+                                        <form action="{{route('admin.profile.update.email')}}" method="post">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    {{-- Email --}}
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="email">Email</label>
+                                                        <div class="col-md-9">
+                                                            <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{Auth::user()->email ?? 'cory1979@hotmail.com'}}">
+                                                        </div>
+                                                        @error('email')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="password1"> Password</label>
-                                                    <div class="col-md-9">
-                                                        <input type="password" id="password1" name="password1" class="form-control" value="123456789">
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="confirm1">Re Password</label>
-                                                    <div class="col-md-9">
-                                                        <input type="password" id="confirm1" name="confirm1" class="form-control" value="123456789">
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="password"> Password</label>
+                                                        <div class="col-md-9">
+                                                            <input type="password" id="password" name="password" class="form-control" value="123456789">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <ul class="pager wizard mb-0 list-inline">
-                                            <li class="next list-inline-item float-end">
-                                                <button type="button" class="btn btn-info">Update Info <i class="mdi mdi-arrow-right ms-1"></i></button>
-                                            </li>
-                                        </ul>
+                                            <ul class="pager wizard mb-0 list-inline">
+                                                <li class="next list-inline-item float-end">
+                                                    <button type="submit" class="btn btn-info">Update Email <i class="mdi mdi-arrow-right ms-1"></i></button>
+                                                </li>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                    {{-- Password Reset --}}
+                                    <div class="tab-pane" id="passwordTab">
+                                        <form action="{{route('admin.profile.update.password')}}" method="post">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="email">Current Password</label>
+                                                        <div class="col-md-9">
+                                                            <input type="password" id="currentpassword" name="currentpassword" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="password">New Password</label>
+                                                        <div class="col-md-9">
+                                                            <input type="password" id="password" name="password" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="password_confirmation">Confirm New Password</label>
+                                                        <div class="col-md-9">
+                                                            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    @error('password')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <ul class="pager wizard mb-0 list-inline">
+                                                <li class="next list-inline-item float-end">
+                                                    <button type="submit" class="btn btn-info">Update Password <i class="mdi mdi-arrow-right ms-1"></i></button>
+                                                </li>
+                                            </ul>
+                                        </form>
                                     </div>
                                     {{-- Social Sites --}}
-                                    <div class="tab-pane" id="social">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="facebook">Facebook</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="facebook" name="facebook" class="form-control" value="cory1979@hotmail.com">
+                                    <div class="tab-pane" id="socialTab">
+                                        <form action="{{route('admin.profile.update.social')}}" method="post">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="facebook">Facebook</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="facebook" name="facebook" class="form-control" value="https://www.facebook.com">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="twitter">Twitter</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="twitter" name="twitter" class="form-control" value="cory1979@hotmail.com">
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="twitter">Twitter</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="twitter" name="twitter" class="form-control" value="https://www.twitter.com">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="skype">Skype</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="skype" name="skype" class="form-control" value="cory1979@hotmail.com">
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="skype">Skype</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="skype" name="skype" class="form-control" value="https://www.skype.com">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <ul class="pager wizard mb-0 list-inline">
-                                            <li class="next list-inline-item float-end">
-                                                <button type="button" class="btn btn-info">Update Info <i class="mdi mdi-arrow-right ms-1"></i></button>
-                                            </li>
-                                        </ul>
+                                            <ul class="pager wizard mb-0 list-inline">
+                                                <li class="next list-inline-item float-end">
+                                                    <button type="submit" class="btn btn-info">Update Info <i class="mdi mdi-arrow-right ms-1"></i></button>
+                                                </li>
+                                            </ul>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
