@@ -7,6 +7,8 @@
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
     <link rel="shortcut icon" href="{{asset('backend/images/favicon.ico')}}">
+    <!-- Plugin css -->
+    <link rel="stylesheet" href="{{asset('backend/vendor/jquery-toast-plugin/jquery.toast.min.css')}}">
     <script src="{{asset('backend/js/hyper-config.js')}}"></script>
     <link href="{{asset('backend/css/app-modern.min.css')}}" rel="stylesheet" type="text/css" id="app-style" />
     <link href="{{asset('backend/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
@@ -86,53 +88,48 @@
     </div>
 
     <footer class="footer footer-alt">
-        <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com
+        <script>document.write(new Date().getFullYear())</script> © Admin Dashboard
     </footer>
     <script src="{{asset('backend/js/vendor.min.js')}}"></script>
+
+    <!-- Toastr Demo js -->
+    <script src="{{asset('backend/vendor/jquery-toast-plugin/jquery.toast.min.js')}}"></script>
+    <script src="{{asset('backend/js/pages/demo.toastr.js')}}"></script>
+
     <script src="{{asset('backend/js/app.min.js')}}"></script>
 
-    <script>
-        $(document).ready(function() {
+     {{-- Toast notifications --}}
+     @if (session('success'))
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             showToast('success', "{{ session('success') }}");
+         });
+     </script>
+    @endif
 
-            toastr.options.timeOut = 10000;
-            @if (Session::has('success'))
-                toastr.options = {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "positionClass": "toastr-bottom-right",
-                };
+    @if (session('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('error', "{{ session('error') }}");
+            });
+        </script>
+    @endif
 
-                toastr.success("{{ session('success') }}");
-            @endif
+    @if (session('warning'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('warning', "{{ session('warning') }}");
+            });
+        </script>
+    @endif
 
-            @if (Session::has('error'))
-                toastr.options = {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "positionClass": "toastr-bottom-right",
-                };
-                toastr.error("{{ session('error') }}");
-            @endif
-
-            @if (Session::has('info'))
-                toastr.options = {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "positionClass": "toastr-bottom-right",
-                };
-                toastr.info("{{ session('info') }}");
-            @endif
-
-            @if (Session::has('warning'))
-                toastr.options = {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "positionClass": "toastr-bottom-right",
-                };
-                toastr.warning("{{ session('warning') }}");
-            @endif
-        });
-    </script>
+    @if (session('info'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('info', "{{ session('info') }}");
+            });
+        </script>
+    @endif
 
 </body>
 </html>

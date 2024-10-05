@@ -34,10 +34,10 @@ Route::middleware('guest')->group(function () {
     Route::post('email/verify/{token}', [RegisteredUserController::class, 'verifyEmail']);
 
     // admin login/store
-    Route::get('admin/dashboard/login', [AuthenticatedSessionController::class, 'adminLogin'])
+    Route::get('login', [AuthenticatedSessionController::class, 'adminLogin'])
                 ->name('admin.login');
 
-    Route::post('admin/dashboard/login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');

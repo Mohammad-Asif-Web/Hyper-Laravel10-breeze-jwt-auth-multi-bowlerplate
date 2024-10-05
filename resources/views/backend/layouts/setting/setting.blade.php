@@ -6,9 +6,54 @@
 @endsection
 
 @push('css')
-    <style>
+<style>
+    /* Start Styling for the upload box of custom photo upload */
+    .upload-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #ddd;
+        border-radius: 6px;
+        padding: 20px;
+        cursor: pointer;
+        text-align: center;
+        width: 100%;
+        height: 150px;
+        background-color: #f9f9f9;
+        color: #888;
+    }
 
-    </style>
+    .upload-box:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Styling for the preview image */
+    .image-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .image-preview img {
+        max-width: 150px;
+        max-height: 150px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+    .remove-link {
+        color: #ff6b6b;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .remove-link:hover {
+        color: #ff0000;
+    }
+    /* Ending Styling for the upload box of custom photo upload */
+
+</style>
 @endpush
 
 @section('content')
@@ -52,20 +97,35 @@
                                         <div class="row mb-3">
                                             <label class="col-md-3 col-form-label" for="title">Meta Title</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" id="title" name="meta_title" value="hyper">
+                                                <input type="text" class="form-control" id="title" name="meta_title" value="{{$setting->meta_title ?? 'title'}}">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label class="col-md-3 col-form-label" for="description">Meta Description</label>
                                             <div class="col-md-9">
-                                                <textarea id="description" name="meta_description" class="form-control" value="123456789"> </textarea>
+                                                <textarea id="description" name="meta_description" class="form-control">{{$setting->meta_description ?? 'description'}}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
                                             <label class="col-md-3 col-form-label" for="keyword">Meta Keywords</label>
                                             <div class="col-md-9">
-                                                <input type="text" id="keyword" name="meta_keywords" class="form-control" value="123456789">
+                                                <input type="text" id="keyword" name="meta_keywords" class="form-control" value="{{$setting->meta_keywords ?? 'keywords'}}">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-md-3 col-form-label" for="favicon">Favicon</label>
+                                            <div class="col-md-9">
+                                                {{-- Start upload box of custom photo upload --}}
+                                                <label for="avatar" class="upload-box">
+                                                    <span id="upload-text">Click to upload a photo</span>
+                                                    <input id="avatar" name="favicon" type="file" accept="image/*" style="display: none;" />
+                                                </label>
+                                                <div class="image-preview mt-3" id="file-previews" style="display: none;">
+                                                    <img id="preview-image" src="" alt="Selected Image" />
+                                                    <span class="remove-link" id="remove-photo">Remove</span>
+                                                </div>
+                                                {{-- Ending upload box of custom photo upload --}}
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +138,7 @@
                                 </ul>
                             </form>
 
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -94,13 +154,3 @@
     <script></script>
 @endpush
 
-
-
-
-{{--
-<form class="form" action="{{ route('admin.setting.update') }}" method="POST" enctype="multipart/form-data">
-
-    <input type="text" class="form-control form-control-solid" name="meta_title" value="{{ $setting->meta_title ?? 'this is website title' }}" />
-    <textarea class="form-control form-control-solid" name="meta_description">{{ $setting->meta_description ?? 'this is website description' }}</textarea>
-    <input type="text" class="form-control form-control-solid" name="meta_keywords" value="{{  $setting->meta_keywords ?? 'key, words'}}" data-kt-ecommerce-settings-type="tagify" />
- --}}

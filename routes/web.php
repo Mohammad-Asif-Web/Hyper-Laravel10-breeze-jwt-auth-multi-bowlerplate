@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Backend/Admin Routes will be here
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['admin'])->group(function () {
     // Admin Profile routes
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');

@@ -70,7 +70,7 @@
     @stack('script')
 
 
-    //  Toast notifications
+     {{-- Toast notifications --}}
     @if (session('success'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
