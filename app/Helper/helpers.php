@@ -19,6 +19,14 @@ function uploadImage($file, $folder, $name): string
     return $path;
 }
 
+function uploadVideo($file, $folder, $name): string
+{
+    $imageName = Str::slug($name) . '.' . $file->extension();
+    $file->move(public_path('uploads/' . $folder), $imageName);
+    $path = 'uploads/' . $folder . $imageName;
+    return $path;
+}
+
 /**
  * Deletes the specified image file if it exists.
  *
@@ -26,10 +34,10 @@ function uploadImage($file, $folder, $name): string
  * @return bool True if the file was successfully deleted, false otherwise.
  */
 // Delete Image
-function deleteImage($image)
+function deleteMedia($media)
 {
-    if (isset($image) && file_exists($image)) {
-        unlink($image);
+    if (isset($media) && file_exists($media)) {
+        unlink($media);
         return true; // Successfully deleted the file
     }
     return false; // File doesn't exist or wasn't provided
@@ -82,4 +90,17 @@ function uploadPdf($pdfContent, $folder, $name): string
     // Return the relative path to store in the database
     return 'uploads/' . $folder . $fileName;
 }
+
+// seconds to time converter
+// $seconds = 3839;
+// use this function as = convertSecondsToTime($seconds);
+function convertSecondsToTime($totalSeconds)
+{
+    $hours = str_pad(floor($totalSeconds / 3600), 2, '0', STR_PAD_LEFT);
+    $minutes = str_pad(floor(($totalSeconds % 3600) / 60), 2, '0', STR_PAD_LEFT);
+    $seconds = str_pad($totalSeconds % 60, 2, '0', STR_PAD_LEFT);
+
+    return $hours . 'h ' . $minutes . 'min ' . $seconds . 's'; // Output: 01h 01min 05s
+}
+
 

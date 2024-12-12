@@ -22,7 +22,6 @@ class User extends Authenticatable implements JWTSubject
     protected $guarded = [];
 
     protected $attributes = [
-        'otp' => '0',
     ];
 
     /**

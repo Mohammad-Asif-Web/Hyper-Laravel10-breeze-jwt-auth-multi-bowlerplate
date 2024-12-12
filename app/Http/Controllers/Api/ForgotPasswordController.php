@@ -23,11 +23,11 @@ class ForgotPasswordController extends Controller
     {
         try {
             $request->validate([
-                'email' => 'required|string|email|max:50|min:7',
+                'email' => 'required|email|max:50|exists:users,email',
             ]);
 
             $email = $request->input('email');
-            $otp   = rand(10000, 99999);
+            $otp   = rand(1000, 9999);
             $user = User::where('email', $email)->first();
 
             if ($user) {
@@ -56,7 +56,7 @@ class ForgotPasswordController extends Controller
     {
         try {
             $request->validate([
-                'otp' => 'required|string|max:5|min:5',
+                'otp' => 'required|string|max:4|min:4',
             ]);
 
             $email = $request->input('email');
@@ -90,7 +90,7 @@ class ForgotPasswordController extends Controller
         try {
             $request->validate([
                 'password' => 'required|string|min:6|confirmed',
-                'email'    => 'required|string|email|',
+                'email'    => 'required|email|max:50|exists:users,email',
             ]);
 
             $email    = $request->input('email');
@@ -129,7 +129,7 @@ class ForgotPasswordController extends Controller
     {
         try {
             $request->validate([
-                'email' => 'required|string|email|max:50|min:7',
+                'email' => 'required|email|max:50|exists:users,email',
             ]);
 
             $email = $request->input('email');
@@ -137,7 +137,7 @@ class ForgotPasswordController extends Controller
 
             if ($user) {
                 // Generate a new OTP
-                $otp = rand(10000, 99999);
+                $otp = rand(1000, 9999);
 
                 // Dispatch the OTP email job
                 ResetPasswordMail::dispatch($user->toArray(), $otp);

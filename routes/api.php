@@ -2,7 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\JournalController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ForgotPasswordController;
 
 /*
@@ -19,19 +23,24 @@ use App\Http\Controllers\Api\ForgotPasswordController;
 // guest routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-// Verify User by OTP
-Route::post('/verify-user-otp', [AuthController::class, 'verifyUserOTP']);
 
-// forget password ====new to create a new controller for forget password=====
+// forget password 
 Route::post('/send-otp', [ForgotPasswordController::class, 'sendOTPCode']);
 Route::post('/verify-otp', [ForgotPasswordController::class, 'verifyOTP']);
 Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword']);
 Route::post('/resend-otp', [ForgotPasswordController::class, 'resendOTP']);
 
-
 Route::middleware('auth:api')->group( function () {
     // user logout
+    Route::get('/me', [AuthController::class, 'me']);
     Route::get('/logout', [AuthController::class, 'logout']);
+    // profile
+    Route::post('/update-profile', [ProfileController::class, 'updateProfile']);
+    // legal documentation
+    Route::get('/get-faq-list', [FaqController::class, 'getFaqList']);
+    Route::post('/search-faq', [FaqController::class, 'searchFaq']);
+    Route::get('/get-privacy-policy', [FaqController::class, 'getPrivacyPolicy']);
+
 });
 
 

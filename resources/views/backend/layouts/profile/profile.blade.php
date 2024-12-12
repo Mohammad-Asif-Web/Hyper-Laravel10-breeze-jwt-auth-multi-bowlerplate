@@ -90,7 +90,8 @@
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <div class="avatar-lg">
-                                                <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('backend/images/users/avatar-2.jpg')}}" alt="" class="rounded-circle img-thumbnail">
+                                                <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('backend/images/users/avatar-2.jpg')}}"
+                                                class="rounded-circle img-thumbnail w-100 h-100" alt="">
                                             </div>
                                         </div>
                                         <div class="col">
@@ -100,20 +101,20 @@
 
                                                 <ul class="mb-0 list-inline text-light">
                                                     <li class="list-inline-item me-3">
-                                                        <h5 class="mb-1 text-white">$ 25,184</h5>
-                                                        <p class="mb-0 font-13 text-white-50">Total Revenue</p>
+                                                        <h5 class="mb-1 text-white">10000</h5>
+                                                        <p class="mb-0 font-13 text-white-50">Total Users</p>
                                                     </li>
                                                     <li class="list-inline-item">
-                                                        <h5 class="mb-1 text-white">5482</h5>
-                                                        <p class="mb-0 font-13 text-white-50">Number of Orders</p>
+                                                        <h5 class="mb-1 text-white">250</h5>
+                                                        <p class="mb-0 font-13 text-white-50">Number of Courses</p>
                                                     </li>
                                                     <li class="list-inline-item">
-                                                        <h5 class="mb-1 text-white">3082</h5>
-                                                        <p class="mb-0 font-13 text-white-50">Number of Users</p>
+                                                        <h5 class="mb-1 text-white">500</h5>
+                                                        <p class="mb-0 font-13 text-white-50">Number of Lessons</p>
                                                     </li>
                                                     <li class="list-inline-item">
-                                                        <h5 class="mb-1 text-white">8482</h5>
-                                                        <p class="mb-0 font-13 text-white-50">Current Traffic</p>
+                                                        <h5 class="mb-1 text-white">1500</h5>
+                                                        <p class="mb-0 font-13 text-white-50">Total Journal</p>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -142,19 +143,23 @@
                         <div class="card-body">
                             <h4 class="header-title mt-0 mb-3">Admin Information</h4>
                             <p class="text-muted font-13">
-                                Hye, I’m {{Auth::user()->name ?? 'Michael Franklin'}} residing in this beautiful world. I'm the owner of this ''this websites. this project is a service based project for public peoples.
+                                Hye, I’m <span class="fw-bold">{{ ucwords(Auth::user()->name)  ?? 'Michael Franklin'}}</span>  <br>
+                                Residing in this beautiful world. I'm the owner of this app. My mission is to provide high-quality,
+                                expert-crafted courses that make dog training simple, effective, and fun.
                             </p>
 
                             <hr />
 
                             <div class="text-start">
-                                <p class="text-muted"><strong>Full Name :</strong> <span class="ms-2">{{Auth::user()->name ?? 'Michael Franklin'}}</span></p>
+                                <p class="text-muted"><strong>Full Name :</strong> <span class="ms-2">{{ ucwords(Auth::user()->name)  ?? 'Michael Franklin'}}</span></p>
                                 <p class="text-muted"><strong>Email :</strong> <span class="ms-2">{{Auth::user()->email ?? 'coderthemes@gmail.com'}} </span></p>
                                 <p class="text-muted"><strong>Mobile :</strong><span class="ms-2">{{Auth::user()->phone ?? '(+12) 123 1234 567'}}</span></p>
-                                <p class="text-muted"><strong>Location :</strong> <span class="ms-2"> {{Auth::user()->location ?? 'USA'}}</span></p>
-                                <p class="text-muted"><strong>City :</strong> <span class="ms-2">{{Auth::user()->city ?? 'Las Vegas'}} </span></p>
-                                <p class="text-muted"><strong>Languages :</strong>
-                                    <span class="ms-2">{{Auth::user()->language ?? 'English, German, Spanish'}}  </span>
+                                <p class="text-muted"><strong>Dob :</strong> <span class="ms-2"> {{Auth::user()->dob ?? 'N/A'}}</span></p>
+                                <p class="text-muted"><strong>Country :</strong> <span class="ms-2"> {{ ucwords(Auth::user()->country)  ?? 'USA'}}</span></p>
+                                <p class="text-muted"><strong>Gender :</strong> <span class="ms-2">{{ ucwords(Auth::user()->gender)  ?? 'N/A'}} </span></p>
+                                <p class="text-muted"><strong>Designation :</strong> <span class="ms-2">{{ ucwords(Auth::user()->designation)  ?? 'N/A'}} </span></p>
+                                {{-- <p class="text-muted"><strong>Languages :</strong>
+                                    <span class="ms-2">{{Auth::user()->language ?? 'English, German, Spanish'}}  </span> --}}
                                 </p>
                                 <p class="text-muted mb-0" id="tooltip-container"><strong>Elsewhere :</strong>
                                     <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container" data-bs-placement="top" data-bs-toggle="tooltip" href="{{auth()->user()->facebook_url}}" target="_blank" title="Facebook"><i class="mdi mdi-facebook"></i></a>
@@ -167,25 +172,22 @@
                     </div>
 
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" style="overflow-y: scroll;height: 282px;">
                             <h4 class="header-title mb-3">Users List</h4>
-
                             <div class="inbox-widget">
+                                @forelse ($users as $user)
+                                <div class="inbox-item">
+                                    <div class="inbox-item-img"><img src="{{ $user->avatar ? asset($user->avatar) : asset('backend/images/users/avatar-2.jpg')}}" class="rounded-circle" alt=""></div>
+                                    <p class="inbox-item-author">{{ ucwords($user->name) ?? 'N/A' }} <span class="{{ $user->status == 'Active' ? 'text-success' : 'text-danger'  }}">({{$user->status}})</span> </p>
+                                    <p class="inbox-item-text">{{ ucwords($user->designation) ?? 'N/A' }}</p>
+                                </div>
+                                @empty
                                 <div class="inbox-item">
                                     <div class="inbox-item-img"><img src="{{asset('backend/images/users/avatar-2.jpg')}}" class="rounded-circle" alt=""></div>
                                     <p class="inbox-item-author">Tomaslau</p>
                                     <p class="inbox-item-text">I've finished it! See you so...</p>
                                 </div>
-                                <div class="inbox-item">
-                                    <div class="inbox-item-img"><img src="{{asset('backend/images/users/avatar-3.jpg')}}" class="rounded-circle" alt=""></div>
-                                    <p class="inbox-item-author">Stillnotdavid</p>
-                                    <p class="inbox-item-text">This theme is awesome!</p>
-                                </div>
-                                <div class="inbox-item">
-                                    <div class="inbox-item-img"><img src="{{asset('backend/images/users/avatar-4.jpg')}}" class="rounded-circle" alt=""></div>
-                                    <p class="inbox-item-author">Kurafire</p>
-                                    <p class="inbox-item-text">Nice to meet you</p>
-                                </div>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -260,21 +262,27 @@
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="location"> Location</label>
+                                                        <label class="col-md-3 col-form-label" for="dob"> Date of Birth</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" id="location" name="location" class="form-control" value="{{Auth::user()->location ?? 'USA'}}">
+                                                            <input type="date" id="dob" name="dob" class="form-control" value="{{Auth::user()->dob ?? 'N/A'}}">
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="city"> City</label>
+                                                        <label class="col-md-3 col-form-label" for="country"> Country</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" id="city" name="city" class="form-control" value="{{Auth::user()->city ?? 'Las vegas'}}">
+                                                            <input type="text" id="country" name="country" class="form-control" value="{{ ucwords(Auth::user()->country)  ?? 'USA'}}">
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="language"> Languages</label>
+                                                        <label class="col-md-3 col-form-label" for="gender"> Gender</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" id="language" name="language" class="form-control" value="{{Auth::user()->language ?? 'English, German, Spanish'}}">
+                                                            <input type="text" id="gender" name="gender" class="form-control" value="{{ ucwords(Auth::user()->gender)  ?? 'N/A'}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="designation"> Designation</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="designation" name="designation" class="form-control" value="{{ ucwords(Auth::user()->designation)  ?? 'N/A'}}">
                                                         </div>
                                                     </div>
                                                     {{-- upload photo --}}
@@ -372,8 +380,7 @@
                                     </div>
                                     {{-- Social Sites --}}
                                     <div class="tab-pane" id="socialTab">
-                                        <form action="{{route('admin.profile.update.social')}}" method="post">
-                                            @csrf
+                                        <form action="javascript:void(0)" method="">
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="row mb-3">

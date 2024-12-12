@@ -33,6 +33,7 @@
         </div>
         <!-- end page title -->
 
+        {{-- row --}}
         <div class="row">
             <div class="col-12">
                 <div class="card widget-inline">
@@ -43,7 +44,7 @@
                                     <div class="card-body text-center">
                                         <i class="ri-briefcase-line text-muted font-24"></i>
                                         <h3><span>29</span></h3>
-                                        <p class="text-muted font-15 mb-0">Total Projects</p>
+                                        <p class="text-muted font-15 mb-0">Total Courses</p>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +54,7 @@
                                     <div class="card-body text-center">
                                         <i class="ri-list-check-2 text-muted font-24"></i>
                                         <h3><span>715</span></h3>
-                                        <p class="text-muted font-15 mb-0">Total Tasks</p>
+                                        <p class="text-muted font-15 mb-0">Active Courses</p>
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +64,7 @@
                                     <div class="card-body text-center">
                                         <i class="ri-group-line text-muted font-24"></i>
                                         <h3><span>31</span></h3>
-                                        <p class="text-muted font-15 mb-0">Members</p>
+                                        <p class="text-muted font-15 mb-0">Total Lessons</p>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +74,61 @@
                                     <div class="card-body text-center">
                                         <i class="ri-line-chart-line text-muted font-24"></i>
                                         <h3><span>93%</span> <i class="mdi mdi-arrow-up text-success"></i></h3>
-                                        <p class="text-muted font-15 mb-0">Productivity</p>
+                                        <p class="text-muted font-15 mb-0">Active Lessons</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- end row -->
+                    </div>
+                </div> <!-- end card-box-->
+            </div> <!-- end col-->
+        </div>
+        <!-- end row-->
+
+
+        {{-- row --}}
+        <div class="row">
+            <div class="col-12">
+                <div class="card widget-inline">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="card rounded-0 shadow-none m-0">
+                                    <div class="card-body text-center">
+                                        <i class="ri-briefcase-line text-muted font-24"></i>
+                                        <h3><span>29</span></h3>
+                                        <p class="text-muted font-15 mb-0">Total Members</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="card rounded-0 shadow-none m-0 border-start border-light">
+                                    <div class="card-body text-center">
+                                        <i class="ri-list-check-2 text-muted font-24"></i>
+                                        <h3><span>715</span></h3>
+                                        <p class="text-muted font-15 mb-0">Active Members</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="card rounded-0 shadow-none m-0 border-start border-light">
+                                    <div class="card-body text-center">
+                                        <i class="ri-group-line text-muted font-24"></i>
+                                        <h3><span>31</span></h3>
+                                        <p class="text-muted font-15 mb-0">Total Lessons</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="card rounded-0 shadow-none m-0 border-start border-light">
+                                    <div class="card-body text-center">
+                                        <i class="ri-line-chart-line text-muted font-24"></i>
+                                        <h3><span>93%</span> <i class="mdi mdi-arrow-up text-success"></i></h3>
+                                        <p class="text-muted font-15 mb-0">Active Lessons</p>
                                     </div>
                                 </div>
                             </div>

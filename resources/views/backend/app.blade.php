@@ -12,6 +12,8 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content=" - Admin Dashboard" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <title>
         @yield('title')
@@ -68,10 +70,55 @@
     @include('backend.partials.scripts')
 
     @stack('script')
+    <script>
+        $(document).ready(function() {
+
+            // toastr.options.timeOut = 10000000000;
+            // toastr.options.timeOut = 10000;
+            @if (Session::has('success'))
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "positionClass": "toastr-bottom-right",
+                    // "timeOut": 300000, // 5 minutes in milliseconds
+                    // "extendedTimeOut": 0,
+                };
+
+                toastr.success("{{ session('success') }}");
+            @endif
+
+            @if (Session::has('error'))
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "positionClass": "toastr-bottom-right",
+                };
+                toastr.error("{{ session('error') }}");
+            @endif
+
+            @if (Session::has('info'))
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "positionClass": "toastr-bottom-right",
+                };
+                toastr.info("{{ session('info') }}");
+            @endif
+
+            @if (Session::has('warning'))
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "positionClass": "toastr-bottom-right",
+                };
+                toastr.warning("{{ session('warning') }}");
+            @endif
+        });
+    </script>
 
 
      {{-- Toast notifications --}}
-    @if (session('success'))
+    {{-- @if (session('success'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 showToast('success', "{{ session('success') }}");
@@ -101,7 +148,7 @@
                 showToast('info', "{{ session('info') }}");
             });
         </script>
-    @endif
+    @endif --}}
 
 </body>
 

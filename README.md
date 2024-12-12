@@ -68,3 +68,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 # lukeblakely_backend
 # Laravel10-breeze-jwt-auth-multi-bowlerplate-installed
 # Hyper-Laravel10-breeze-jwt-auth-multi-bowlerplate
+# Agilityacademy2_backend
+# aliasnamelj_backend

@@ -36,7 +36,7 @@
         <div class="leftbar-user">
             <a href="{{route('admin.profile')}}">
                 <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('backend/images/users/avatar-2.jpg')}}"
-                    alt="user-image" height="42" class="rounded-circle shadow-sm">
+                    alt="user-image" style="width:60px;height:60px;" class="rounded-circle shadow-sm">
                 <span class="leftbar-user-name mt-2">Dominic Keller</span>
             </a>
         </div>
@@ -60,20 +60,53 @@
             </li>
 
             <li class="side-nav-title">APPS MANAGEMENT</li>
-            {{-- email --}}
+            {{-- Course Users --}}
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
-                    <i class="uil-envelope"></i>
-                    <span> Email </span>
+                <a data-bs-toggle="collapse" href="#courseUsers" aria-expanded="false" aria-controls="courseUsers" class="side-nav-link">
+                    <i class="uil-apps"></i>
+                    <span> User </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse" id="sidebarEmail">
+                <div class="collapse" id="courseUsers">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="apps-email-inbox.html">Inbox</a>
+                            <a href="{{route('admin.user.create')}}">Add New User</a>
                         </li>
                         <li>
-                            <a href="apps-email-read.html">Read Email</a>
+                            <a href="{{route('admin.user.index')}}">User List</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {{-- FAQ --}}
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#faq" aria-expanded="false" aria-controls="faq" class="side-nav-link">
+                    <i class="uil-layer-group"></i>
+                    <span> FAQ </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="faq">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{route('admin.faq.create')}}">Add FAQ</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.faq.index')}}">FAQ List</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {{-- Privacy & Policy --}}
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#pricacy" aria-expanded="false" aria-controls="pricacy" class="side-nav-link">
+                    <i class="uil-layer-group"></i>
+                    <span> Privacy & Policy </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="pricacy">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{route('admin.policy.edit')}}">Update Privacy Policy</a>
                         </li>
                     </ul>
                 </div>

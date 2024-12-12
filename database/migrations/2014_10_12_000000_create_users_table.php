@@ -14,24 +14,18 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name', 150)->nullable();
-            $table->string('username', 150)->nullable();
             $table->string('email', 150)->unique()->nullable();
             $table->string('password')->nullable();
             $table->string('phone', 150)->unique()->nullable();
-            $table->string('location', 150)->nullable();
-            $table->string('city', 150)->nullable();
-            $table->string('language', 150)->nullable();
-
             $table->string('avatar')->nullable();
             $table->enum('role', ['admin','user'])->default('user');
+            $table->date('dob')->nullable();
+            $table->string('country', 150)->nullable();
+            $table->string('gender', 150)->nullable();
+            $table->string('designation', 150)->nullable();
             $table->string('otp', 6)->nullable();
-            $table->enum('status', [0, 1])->default(1)->comment('0 = De-Active, 1 = Active');
+            $table->enum('status', ['Active', 'Deactive'])->default('Active');
             $table->string('google_id')->nullable();
-            $table->string('github_id')->nullable();
-            $table->string('linkedin_id')->nullable();
-            $table->string('facebook_url')->nullable();
-            $table->string('twitter_url')->nullable();
-            $table->string('skype_url')->nullable();
             $table->rememberToken();
             $table->timestamp('otp_verified_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();

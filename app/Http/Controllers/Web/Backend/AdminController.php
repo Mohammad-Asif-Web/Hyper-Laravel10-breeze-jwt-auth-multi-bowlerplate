@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Web\Backend;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\CourseLesson;
+use App\Models\Journal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,12 +16,14 @@ class AdminController extends Controller
 {
     public function index()
     {
+
         return view('backend.layouts.dashboard');
     }
 
     public function profile()
     {
-        return view('backend.layouts.profile.profile');
+        $users = User::where('role', 'user')->latest()->get();
+        return view('backend.layouts.profile.profile', compact('users',));
     }
 
     public function updateProfile(Request $request)
@@ -25,12 +31,12 @@ class AdminController extends Controller
         // Validate the incoming request
         $validator =  $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'nullable|string|unique:users|max:255',
             'phone' => 'nullable|string|max:255',
-            'location' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'language' => 'nullable|string|max:255',
             'avatar' => 'nullable|image|mimes:jpg,png,jpeg|max:10240',
+            'dob' => 'nullable|date',
+            'country' => 'nullable|string',
+            'gender' => 'nullable|string',
+            'designation' => 'nullable|string',
         ]);
 
         // dd($request->hasFile('avatar'));
@@ -40,16 +46,18 @@ class AdminController extends Controller
         // Update the admin's profile
         $admin->name = $request->input('name');
         $admin->phone = $request->input('phone');
-        $admin->location = $request->input('location');
-        $admin->city = $request->input('city');
-        $admin->language = $request->input('language');
+
+        $admin->dob = $request->input('dob');
+        $admin->country = $request->input('country');
+        $admin->gender = $request->input('gender');
+        $admin->designation = $request->input('designation');
 
         // Handle profile image update
         if ($request->hasFile('avatar')) {
             // Delete the old image if it exists
             // dd($request->file('avatar'));
             if ($admin->avatar) {
-                deleteImage($admin->avatar);
+                deleteMedia($admin->avatar);
             }
 
             // Upload the new image
